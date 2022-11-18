@@ -7,8 +7,8 @@ clean:
 
 exec: bin/exec
 
-bin/exec: main.cpp src/algorithms.h src/algorithms.cpp
-	${CXX} ${CXX_FLAGS} main.cpp src/algorithms.cpp -o bin/exec
+bin/exec: main.cpp src/algorithms.h src/graph.h src/algorithms.cpp src/graph.cpp
+	${CXX} ${CXX_FLAGS} main.cpp src/algorithms.cpp src/graph.cpp -o bin/exec
 
 tests: tests/tests.cpp src/algorithms.cpp
 	$(CXX) $(CXXFLAGS) $^ -o bin/tests
