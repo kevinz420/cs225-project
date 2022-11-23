@@ -1,18 +1,43 @@
 #include "graph.h"
 
-Graph::Graph(string filename, int num_nodes) { // constructor (read in data)
-    numNodes = num_nodes;
-    //TODO, get the data into graph representation
-    //I think we should use integers to represent each node, then use the vector<string>
-    //to get the data for index i in the form of an integer.
+Graph::Graph(string filename) { // constructor (read in data)
+    string line;
+    std::ifstream infile(filename);
+    while (getline(infile, line)) {
+        string p1 = "";
+        string p2 = "";
+        bool isFirst = true;
+        for (auto c : line) {
+            if (c == ' ') isFirst = false;
+            else {
+                if (isFirst) p1 += c;
+                else p2 += c;
+            }
+        }
+
+        int n1 = stoi(p1);
+        int n2 = stoi(p2);
+
+        addEdge(n1, n2);
+    }
+    numNodes = adj.size();
 }
 
 void Graph::addEdge(int first, int second) {
+    if (first >= adj.size() || second >= adj.size()) {
+        adj.resize(max(first, second) + 1);
+        for (auto& row : adj) {
+            row.resize(max(first, second) + 1);
+        }
+    }
     adj[first][second] = 1;
     adj[second][first] = 1; //because undirected graph
 }
 
 bool Graph::containsEdge(int first, int second) const {
+    if (first >= adj.size() || second >= adj.size()) {
+        return 0;
+    }
     return adj[first][second] == 1;
 }
 
