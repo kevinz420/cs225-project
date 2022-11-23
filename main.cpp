@@ -1,12 +1,12 @@
 #include <iostream>
 #include "src/algorithms.h"
-
+#include "src/graph.h"
 /*
 Compile: "make"
 Run: "./bin/exec"
 */
 
 int main() {
-    std::cout << 1;
+    Graph g("facebook_combined.txt");
     return 0;
 }
