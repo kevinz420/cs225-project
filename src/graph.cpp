@@ -1,5 +1,7 @@
 #include "graph.h"
 
+Graph::Graph() {}
+
 Graph::Graph(string filename) { // constructor (read in data)
     string line;
     std::ifstream infile(filename);
@@ -24,7 +26,7 @@ Graph::Graph(string filename) { // constructor (read in data)
 }
 
 void Graph::addEdge(int first, int second) {
-    if (first >= adj.size() || second >= adj.size()) {
+    if (first >= (int)adj.size() || second >= (int)adj.size()) {
         adj.resize(max(first, second) + 1);
         for (auto& row : adj) {
             row.resize(max(first, second) + 1);
@@ -35,7 +37,7 @@ void Graph::addEdge(int first, int second) {
 }
 
 bool Graph::containsEdge(int first, int second) const {
-    if (first >= adj.size() || second >= adj.size()) {
+    if (first >= (int)adj.size() || second >= (int)adj.size()) {
         return 0;
     }
     return adj[first][second] == 1;
@@ -44,11 +46,16 @@ bool Graph::containsEdge(int first, int second) const {
 // iterate through nodes and check if each is connected to curr
 vector<int> Graph::getNeighbors(int curr) {
     vector<int> to_return;
-    for (unsigned i = 0; i < numNodes; i++) { 
+    for (int i = 0; i < numNodes; i++) { 
         if (containsEdge(curr, i) && i != curr) to_return.push_back(i);
     }
     return to_return;
 }
+
+vector<vector<int> > Graph::getAdjMatrix() {
+    return adj;
+}
+
 
 // printing adj matrix
 void Graph::print() const {

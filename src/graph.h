@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include <string>
@@ -17,6 +16,7 @@ class Graph {
         void addEdge(int first, int second);
         bool containsEdge(int first, int second) const;
         vector<int> getNeighbors(int curr);
+        vector<vector<int> > getAdjMatrix();
         void print() const;
          
     private:
