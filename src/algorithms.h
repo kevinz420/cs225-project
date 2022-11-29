@@ -8,9 +8,9 @@
 
 using namespace std;
 
-vector<vector<int>> pageRanks(Graph g);
+vector<vector<double>> pageRanks(Graph g);
 
 // Matrix multiplication function
-vector<vector<int>> matmul(vector<vector<int>> a, vector<vector<int>> b);
+vector<vector<double>> matmul(vector<vector<double>> a, vector<vector<double>> b);
 
-void printMatrix(vector<vector<int>> matrix);
+void printMatrix(vector<vector<double>> matrix);

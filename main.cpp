@@ -9,12 +9,10 @@ using namespace std;
 
 int main() {
     Graph g("facebook_combined.txt");
-    vector<int> ones{1,1};
-    vector<int> twos{2,2};
-    vector<vector<int>> a;
-    a.push_back(ones);
-    a.push_back(twos);
-    vector<vector<int>> ans = matmul(a, a);
-    
+    // g.print();
+    auto page = pageRanks(g);
+    for (size_t i = 0; i < page.size(); i++) {
+        if (page[i][0] > 0.05) cout << page[i][0] << " ";
+    }
     return 0;
 }

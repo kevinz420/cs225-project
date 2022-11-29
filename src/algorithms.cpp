@@ -1,35 +1,39 @@
 #include "algorithms.h"
 
-vector<vector<int>> pageRanks(Graph g) {
+vector<vector<double>> pageRanks(Graph g) {
     vector<vector<int>> adj = g.getAdjMatrix(); // n x n matrix
-    vector<vector<int>> probabilities(adj.size(), vector<int>()); // n x 1 vector
+    vector<vector<double>> google(adj.size(), vector<double>(adj.size(), 0)); // google matrix
+    for (size_t i = 0; i < adj.size(); i++) {
+        for (size_t j = 0; j < adj[0].size(); j++) {
+            if (adj[i][j] == 1) google[i][j] = 1;
+        }
+    }
+    vector<vector<double>> probabilities(adj.size(), vector<double>{0}); // n x 1 vector
     probabilities[0][0] = 1;
-
-    // normalize adj matrix
-    for (size_t col = 0; col < adj[0].size(); col++) {
+    for (size_t col = 0; col < google[0].size(); col++) {
         // summing the column
         int sum = 0;
-        for (size_t row = 0; row < adj.size(); row++) {
+        for (size_t row = 0; row < google.size(); row++) {
             sum += adj[row][col];
         }
-        for (size_t row = 0; row < adj.size(); row++) {
+        for (size_t row = 0; row < google.size(); row++) {
             if (sum == 0) {
-                adj[row][col] = 1 / adj[0].size();
+                google[row][col] = 1 / google[0].size();
             } else {
-                adj[row][col] /= sum;
+                google[row][col] /= sum;
             }
         }
         
     }
 
-    for (int i = 0; i < 100; i++) { // power iteration
-        probabilities = matmul(adj, probabilities);
+    for (int i = 0; i < 10; i++) { // power iteration
+        probabilities = matmul(google, probabilities);
     }
 
     return probabilities;
 }
 
-vector<vector<int>> matmul(vector<vector<int>> a, vector<vector<int>> b) {
+vector<vector<double>> matmul(vector<vector<double>> a, vector<vector<double>> b) {
     int row1 = a.size();
     int col1 = a[0].size();
     int row2 = b.size();
@@ -37,7 +41,7 @@ vector<vector<int>> matmul(vector<vector<int>> a, vector<vector<int>> b) {
 
     assert(col1 = row2);
 
-    vector<vector<int>> ans(row1, vector<int>(col2, 0));
+    vector<vector<double>> ans(row1, vector<double>(col2, 0));
     for (int i = 0; i < row1; i++) {
         for (int j = 0; j < col2; j++) {
             ans[i][j] = 0;
@@ -49,11 +53,11 @@ vector<vector<int>> matmul(vector<vector<int>> a, vector<vector<int>> b) {
     return ans;
 }
 
-void printMatrix(vector<vector<int>> matrix) {
+void printMatrix(vector<vector<double>> matrix) {
     for (size_t i = 0; i < matrix.size(); i++) {
         for (size_t j = 0; j < matrix[0].size(); j++) {
             cout << matrix[i][j] << " ";
         }
-        cout << '\n';
+        // cout << '\n';
     }
 }
