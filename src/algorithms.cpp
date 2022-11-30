@@ -1,5 +1,9 @@
 #include "algorithms.h"
 
+int shortestPath(Graph g, int start, int destination) {
+    return g.containsEdge(start, destination); // remove this
+}
+
 vector<vector<double>> pageRanks(Graph g) {
     vector<vector<int>> adj = g.getAdjMatrix(); // n x n matrix
     vector<vector<double>> google(adj.size(), vector<double>(adj.size(), 0)); // google matrix

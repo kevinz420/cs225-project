@@ -8,6 +8,8 @@
 
 using namespace std;
 
+int shortestPath(Graph g, int start, int destination); // BFS shortest path
+
 vector<vector<double>> pageRanks(Graph g);
 
 // Matrix multiplication function

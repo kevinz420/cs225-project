@@ -18,3 +18,17 @@ TEST_CASE("Graph constructor") {
     REQUIRE(test_graph.containsEdge(7, 4) == test_graph.containsEdge(4, 7));
     REQUIRE(test_graph.containsEdge(-12, 24) == false);
 }
+
+TEST_CASE("Shortest path (path exists)") {
+    Graph test_graph = make_graph();
+    REQUIRE(shortestPath(test_graph, 0, 6) == 1);
+    REQUIRE(shortestPath(test_graph, 0, 6) == shortestPath(test_graph, 6, 0));
+    REQUIRE(shortestPath(test_graph, 4, 9) == 3);
+    REQUIRE(shortestPath(test_graph, 2, 2) == 0);
+}
+
+TEST_CASE("Shortest path (path doesn't exists)") {
+    Graph test_graph = make_graph();
+    REQUIRE(shortestPath(test_graph, 0, 12) == -1);
+    REQUIRE(shortestPath(test_graph, 8, 9) == -1);
+}
