@@ -38,7 +38,7 @@ void Graph::addEdge(int first, int second) {
 
 bool Graph::containsEdge(int first, int second) const {
     if (first >= (int)adj.size() || second >= (int)adj.size()) {
-        return 0;
+        return false;
     }
     return adj[first][second] == 1;
 }
@@ -46,6 +46,9 @@ bool Graph::containsEdge(int first, int second) const {
 // iterate through nodes and check if each is connected to curr
 vector<int> Graph::getNeighbors(int curr) {
     vector<int> to_return;
+    if (curr < 0 || curr >= numNodes) {
+        return to_return;
+    }
     for (int i = 0; i < numNodes; i++) { 
         if (containsEdge(curr, i) && i != curr) to_return.push_back(i);
     }
