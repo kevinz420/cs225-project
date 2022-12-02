@@ -1,7 +1,31 @@
 #include "algorithms.h"
 
-int shortestPath(Graph g, int start, int destination) {
-    return g.containsEdge(start, destination); // remove this
+vector<int> shortestPath(Graph g, int start, int destination) {
+    // return vector of nodes in shortest path including start and destination
+    // return empty vector if path doesnt exist
+    start = destination; // remove this
+    return g.getNeighbors(start); // remove this
+}
+
+vector<double> betweenessCentrality(Graph g) {
+    int numNodes = g.getNumNodes();
+    vector<double> centrality(numNodes, 0); // percentage of shortest paths that pass through each node
+    for (int i = 0; i < numNodes; i++) {
+        for (int j = i+1; j < numNodes; j++) {
+            vector<int> shortestPath_ = shortestPath(g, i, j);
+            for (size_t n = 0; n < shortestPath_.size(); n++) {
+                int node = shortestPath_[n]; // node that shortest path goes through
+                centrality[node]++;
+            }
+        }
+    }
+    double normalizer = (numNodes-1)*(numNodes-2)/2;
+    for (double &d : centrality) {
+        d /= normalizer;
+    }
+    sort(centrality.begin(), centrality.end()); // order nodes by centrality
+    reverse(centrality.begin(), centrality.end());
+    return centrality;
 }
 
 vector<vector<double>> pageRanks(Graph g) {
@@ -30,7 +54,7 @@ vector<vector<double>> pageRanks(Graph g) {
         
     }
 
-    for (int i = 0; i < 10; i++) { // power iteration
+    for (int i = 0; i < 100; i++) { // power iteration
         probabilities = matmul(google, probabilities);
     }
 

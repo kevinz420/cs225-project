@@ -43,6 +43,10 @@ bool Graph::containsEdge(int first, int second) const {
     return adj[first][second] == 1;
 }
 
+int Graph::getNumNodes() {
+    return numNodes;
+}
+
 // iterate through nodes and check if each is connected to curr
 vector<int> Graph::getNeighbors(int curr) {
     vector<int> to_return;

@@ -14,6 +14,7 @@ class Graph {
         Graph();
         Graph(string filename); // constructor (read in data)
         bool containsEdge(int first, int second) const;
+        int getNumNodes();
         vector<int> getNeighbors(int curr);
         vector<vector<int> > getAdjMatrix();
         void print() const;

@@ -5,10 +5,13 @@
 #include <vector>
 #include <iostream>
 #include <cassert>
+#include <algorithm>
 
 using namespace std;
 
-int shortestPath(Graph g, int start, int destination); // BFS shortest path
+vector<int> shortestPath(Graph g, int start, int destination); // BFS shortest path
+
+vector<double> betweenessCentrality(Graph g);
 
 vector<vector<double>> pageRanks(Graph g);
 
