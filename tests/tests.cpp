@@ -29,8 +29,8 @@ TEST_CASE("Shortest path (path exists)") {
 
 TEST_CASE("Shortest path (path doesn't exists)") {
     Graph test_graph = make_graph();
-    REQUIRE(shortestPath(test_graph, 0, 12).empty());
-    REQUIRE(shortestPath(test_graph, 8, 9).empty());
+    REQUIRE(shortestPath(test_graph, 0, 12).size() == 0);
+    REQUIRE_FALSE(shortestPath(test_graph, 8, 9).size() == 0);
 }
 
 TEST_CASE("PageRanks algorithm") {

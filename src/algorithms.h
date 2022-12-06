@@ -6,10 +6,15 @@
 #include <iostream>
 #include <cassert>
 #include <algorithm>
+#include <queue>
+#include <list>
 
 using namespace std;
 
 vector<int> shortestPath(Graph g, int start, int destination); // BFS shortest path
+
+bool BFS(vector<vector<int>> adj, int src, int dest, int v,
+         vector<int>& pred, vector<int>& dist);
 
 vector<double> betweenessCentrality(Graph g);
 

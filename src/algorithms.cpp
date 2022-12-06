@@ -1,10 +1,81 @@
 #include "algorithms.h"
 
+
+
+bool BFS(vector<vector<int>> adj, int src, int dest, int v,
+         vector<int>& pred, vector<int>& dist)
+{
+    vector<bool> visited(v, 0);
+ 
+    for (int i = 0; i < v; i++) {
+        visited[i] = false;
+        dist[i] = 99999;
+        pred[i] = -1;
+    }
+
+    visited[src] = true;
+    dist[src] = 0;
+    list<int> q;
+    q.push_back(src);
+ 
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop_front();
+        for (unsigned i = 0; i < adj[u].size(); i++) {
+            if (visited[adj[u][i]] == false) {
+                visited[adj[u][i]] = true;
+                dist[adj[u][i]] = dist[u] + 1;
+                pred[adj[u][i]] = u;
+                q.push_back(adj[u][i]);
+
+                if (adj[u][i] == dest)
+                    return true;
+            }
+        }
+    }
+ 
+    return false;
+}
+
 vector<int> shortestPath(Graph g, int start, int destination) {
     // return vector of nodes in shortest path including start and destination
     // return empty vector if path doesnt exist
-    start = destination; // remove this
-    return g.getNeighbors(start); // remove this
+    // start = destination; // remove this
+    // return g.getNeighbors(start); // remove this
+    int v = (int)g.getAdjMatrix().size();
+    vector<int> pred(v, 0);
+    vector<int> dist(v, 0);
+
+    vector<vector<int>> adj_list;
+    for (int i = 0 ; i < v; i++) {
+        vector<int> temp;
+        for (int j = 0; j  < v; j++) {
+            if (g.getAdjMatrix()[i][j] == 1) temp.push_back(j);
+        }
+        adj_list.push_back(temp);
+    }
+
+    if (BFS(adj_list, start, destination, v, pred, dist) == false) {
+        //cout << "no path";
+        vector<int> temp;
+        return temp;
+    }
+    vector<int> path;
+    int crawl = destination;
+    path.push_back(crawl);
+    //cout << "dsf " << endl;
+    while (pred[crawl] != -1) {
+        path.push_back(pred[crawl]);
+        crawl = pred[crawl];
+    }
+ 
+    // cout << "\nPath is::\n";
+    // for (int i = path.size() - 1; i >= 0; i--)
+    //     cout << path[i] << " ";
+    
+    
+    reverse(path.begin(), path.end());
+    return path;
 }
 
 vector<double> betweenessCentrality(Graph g) {
