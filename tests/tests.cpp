@@ -46,10 +46,14 @@ TEST_CASE("Betweeness Centrality algorithm") {
     double tol = 0.001;
     Graph test_graph = make_graph();
     vector<double> centrality = betweenessCentrality(test_graph);
-    // REQUIRE(centrality[0] == );
-    double sum = 0; // make sure centrality vector is normalized
-    for (double &c : centrality) {
-        sum += c;
+    REQUIRE(std::abs(centrality[0] - 0.3611) < tol);
+    double max_centrality = 0;
+    int max_index = 0;
+    for (size_t i = 0; i < centrality.size(); i++) {
+        if (centrality[i] > max_centrality) {
+            max_centrality = centrality[i];
+            max_index = i;
+        }
     }
-    REQUIRE(std::abs(sum - 1) < tol);
+    REQUIRE(max_index == 3);
 }

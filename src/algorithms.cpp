@@ -56,23 +56,18 @@ vector<int> shortestPath(Graph g, int start, int destination) {
     }
 
     if (BFS(adj_list, start, destination, v, pred, dist) == false) {
-        //cout << "no path";
+
         vector<int> temp;
         return temp;
     }
     vector<int> path;
     int crawl = destination;
     path.push_back(crawl);
-    //cout << "dsf " << endl;
+    
     while (pred[crawl] != -1) {
         path.push_back(pred[crawl]);
         crawl = pred[crawl];
-    }
- 
-    // cout << "\nPath is::\n";
-    // for (int i = path.size() - 1; i >= 0; i--)
-    //     cout << path[i] << " ";
-    
+    }    
     
     reverse(path.begin(), path.end());
     return path;
@@ -94,8 +89,6 @@ vector<double> betweenessCentrality(Graph g) {
     for (double &d : centrality) {
         d /= normalizer;
     }
-    sort(centrality.begin(), centrality.end()); // order nodes by centrality
-    reverse(centrality.begin(), centrality.end());
     return centrality;
 }
 
