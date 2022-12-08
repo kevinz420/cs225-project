@@ -37,11 +37,9 @@ bool BFS(vector<vector<int>> adj, int src, int dest, int v,
     return false;
 }
 
+// return vector of nodes in shortest path including start and destination
+// return empty vector if path doesnt exist
 vector<int> shortestPath(Graph g, int start, int destination) {
-    // return vector of nodes in shortest path including start and destination
-    // return empty vector if path doesnt exist
-    // start = destination; // remove this
-    // return g.getNeighbors(start); // remove this
     int v = (int)g.getAdjMatrix().size();
     vector<int> pred(v, 0);
     vector<int> dist(v, 0);
@@ -92,7 +90,7 @@ vector<double> betweenessCentrality(Graph g) {
     return centrality;
 }
 
-vector<vector<double>> pageRanks(Graph g) {
+vector<double> pageRanks(Graph g) {
     vector<vector<int>> adj = g.getAdjMatrix(); // n x n matrix
     vector<vector<double>> google(adj.size(), vector<double>(adj.size(), 0)); // google matrix
     for (size_t i = 0; i < adj.size(); i++) {
@@ -122,7 +120,13 @@ vector<vector<double>> pageRanks(Graph g) {
         probabilities = matmul(google, probabilities);
     }
 
-    return probabilities;
+    // turn probablities 2D vector to 1D vector
+    vector<double> probabilities1D(probabilities.size(), 0);
+    for (size_t i = 0; i < probabilities.size(); i++) {
+        probabilities1D[i] = probabilities[i][0];
+    }
+
+    return probabilities1D;
 }
 
 vector<vector<double>> matmul(vector<vector<double>> a, vector<vector<double>> b) {
@@ -150,6 +154,6 @@ void printMatrix(vector<vector<double>> matrix) {
         for (size_t j = 0; j < matrix[0].size(); j++) {
             cout << matrix[i][j] << " ";
         }
-        // cout << '\n';
+        cout << '\n';
     }
 }
