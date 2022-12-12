@@ -15,6 +15,7 @@
   * MakeFile
   * ReadME.md
   * main.cpp (entry)
+  * presentation.mp4 (to view our video, please download the file and play it on your local computer)
   * results.md
   * team_contract.md
   * team_proposal.md 
